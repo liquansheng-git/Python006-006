@@ -43,7 +43,7 @@ def parse_data(html):
 def save_data(comments):
     filename = "spider.txt" 
     dataframe = pd.DataFrame(comments) 
-    dataframe.to_csv(filename, mode='a', index=False, sep=',', header=False, index_label="作者")
+    dataframe.to_csv(filename, mode='a', index=False, sep=':', header=False)
     # exit(0)
     
 def main():   
