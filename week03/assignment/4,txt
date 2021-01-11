@@ -1,0 +1,55 @@
+"""
+以下两张基于 id 列，分别使用 INNER JOIN、LEFT JOIN、 RIGHT JOIN 的结果是什么?
+Table1
+id name
+1 table1_table2
+2 table1
+Table2
+id name
+1 table1_table2
+3 table2
+举例: INNER JOIN
+复制代码
+ SELECT Table1.id, Table1.name, Table2.id, Table2.name 
+ FROM Table1 
+ INNER JOIN Table2 
+ ON Table1.id = Table2.id; 
+ """
+
+create table if not exists `table1`(
+    `id` int not null auto_increment ,
+    `name` varchar(100) not null,
+    primary key (`id`)
+    )engine=innodb default charset=utf8mb4;
+
+create table if not exists `table2`(
+    `id` int not null auto_increment ,
+    `name` varchar(100) not null,
+    primary key (`id`)
+    )engine=innodb default charset=utf8mb4;
+
+insert into table1 values(1,"table1_table2"),(2,"table1");
+insert into table2 values(1,"table1_table2"),(3,"table1");
+
+select * from table1 inner join table2 on table1.id = table2.id;
++----+---------------+----+---------------+
+| id | name          | id | name          |
++----+---------------+----+---------------+
+|  1 | table1_table2 |  1 | table1_table2 |
++----+---------------+----+---------------
+
+select * from table1 LEFT JOIN table2 on table1.id = table2.id;
++----+---------------+------+---------------+
+| id | name          | id   | name          |
++----+---------------+------+---------------+
+|  1 | table1_table2 |    1 | table1_table2 |
+|  2 | table1        | NULL | NULL          |
++----+---------------+------+---------------+
+
+select * from table1 RIGHT JOIN table2 on table1.id = table2.id;
++------+---------------+----+---------------+
+| id   | name          | id | name          |
++------+---------------+----+---------------+
+|    1 | table1_table2 |  1 | table1_table2 |
+| NULL | NULL          |  3 | table2        |
++------+---------------+----+---------------+

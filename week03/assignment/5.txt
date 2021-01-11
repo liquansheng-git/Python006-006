@@ -1,0 +1,12 @@
+"""
+使用 MySQL 官方文档，学习通过 sql 语句为上题中的 id 和 name 增加索引，并验证。根据执行时间，
+增加索引以后是否查询速度会增加？请论述原因，并思考什么样的场景下增加索引才有效。
+"""
+增加索引：
+ALTER TABLE table1 ADD INDEX (id, name);
+查询时间：0.018 sec，0.000 sec,0.000 sec
+
+删去索引：
+ALTER TABLE table1 ADD INDEX id;
+查询时间：0.001 sec，0.000 sec，0.000 sec
+数据了太少，变化不明显

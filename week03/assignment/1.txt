@@ -1,0 +1,32 @@
+"""
+在 Linux 环境下，安装 MySQL5.6 以上版本，修改字符集为 UTF8mb4 并验证，新建一个数据库 testdb，并为该数据库增加远程访问的用。
+将修改字符集的配置项、验证字符集的 SQL 语句作为作业内容提交
+将增加远程用户的 SQL 语句作为作业内容提交
+"""
+
+1.本地安装的MariaDB，跟mysql一样的，是其的衍生产品，版本如下：
+用mysql命令：
+mysql -V
+mysql  Ver 15.1 Distrib 10.3.23-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+用Mariadb命令：
+mariadb -V
+mariadb  Ver 15.1 Distrib 10.3.23-MariaDB, for debian-linux-gnu (x86_64) using readline 5.2
+
+2.show variables like '%character%';
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8mb4                    |
+| character_set_connection | utf8mb4                    |
+| character_set_database   | utf8mb4                    |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8mb4                    |
+| character_set_server     | utf8mb4                    |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+
+3.新建一个数据库 testdb，并为该数据库增加远程访问的用:
+create database testdb;
+GRANT ALL PRIVILEGES ON testdb.*  TO 'user01'@'%' IDENTIFIED BY '1234';
+
+
